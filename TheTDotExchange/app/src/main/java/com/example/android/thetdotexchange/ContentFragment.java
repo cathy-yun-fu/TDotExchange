@@ -24,7 +24,7 @@ public class ContentFragment extends Fragment{
 
             ParseObject testObject = new ParseObject("TestObject");
             testObject.put("foo", "bar");
-            testObject.saveInBackground()
+            testObject.saveInBackground();
 
             return rootView;
         }
