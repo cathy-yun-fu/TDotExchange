@@ -54,16 +54,16 @@ public class MainActivity extends ActionBarActivity
 
         switch(position){
             case 0:
-                frag = new ContentFragment1();
+                frag = new ContentFragment();
                 break;
             case 1:
-                frag = new ContentFragment1();
+                frag = new ContentFragment();
                 break;
             case 2:
-                frag = new ContentFragment1();
+                frag = new ContentFragment();
                 break;
             default:
-                frag = new ContentFragment1();
+                frag = new ContentFragment();
                 break;
         }
 
