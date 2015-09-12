@@ -11,26 +11,32 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.android.thetdotexchange.R;
-import com.example.android.thetdotexchange.SignupActivity;
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class LoginActivity extends AppCompatActivity {
+
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    @InjectView(R.id.input_email) EditText _emailText;
+
+    @InjectView(R.id.input_name)  EditText _nameText;
     @InjectView(R.id.input_password) EditText _passwordText;
-    @InjectView(R.id.btn_login) Button _loginButton;
-    @InjectView(R.id.link_signup) TextView _signupLink;
+    @InjectView(R.id.btn_login)  Button _loginButton;
+    @InjectView(R.id.link_signup)  TextView _signupLink;
+
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         ButterKnife.inject(this);
+
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
@@ -49,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_SIGNUP);
             }
         });
+
     }
 
     public void login() {
@@ -67,11 +74,27 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
 
-        String email = _emailText.getText().toString();
+        String name = _nameText.getText().toString();
         String password = _passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
 
+
+        ParseUser.logInInBackground(name, password,
+                new LogInCallback() {
+                    @Override
+                    public void done(ParseUser user, ParseException e) {
+                        if (e == null){
+                            progressDialog.dismiss();
+                            onLoginSuccess();
+                        } else {
+                            onLoginFailed();
+                            Log.e("login",e.getMessage());
+                        }
+                    }
+                });
+
+        /*
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
@@ -80,9 +103,8 @@ public class LoginActivity extends AppCompatActivity {
                         // onLoginFailed();
                         progressDialog.dismiss();
                     }
-                }, 3000);
+                }, 3000); */
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -91,7 +113,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 // TODO: Implement successful signup logic here
                 // By default we just finish the Activity and log them in automatically
+                setResult(RESULT_OK, null);
                 this.finish();
+
             }
         }
     }
@@ -104,6 +128,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
+        setResult(RESULT_OK, null);
         finish();
     }
 
@@ -116,14 +141,14 @@ public class LoginActivity extends AppCompatActivity {
     public boolean validate() {
         boolean valid = true;
 
-        String email = _emailText.getText().toString();
+        String name = _nameText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("enter a valid email address");
+        if (name.isEmpty() || name.length() < 3) {
+            _nameText.setError("enter a valid username");
             valid = false;
         } else {
-            _emailText.setError(null);
+            _nameText.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
@@ -135,4 +160,5 @@ public class LoginActivity extends AppCompatActivity {
 
         return valid;
     }
+
 }

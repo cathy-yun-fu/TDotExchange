@@ -10,6 +10,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -66,6 +70,26 @@ public class SignupActivity extends AppCompatActivity {
 
         // TODO: Implement your own signup logic here.
 
+        ParseUser user = new ParseUser();
+        user.setUsername(name);
+        user.setPassword(password);
+        user.setEmail(email);
+
+        user.signUpInBackground(new SignUpCallback(){
+            @Override
+            public void done(ParseException e){
+                if (e == null){
+                    progressDialog.dismiss();
+                    onSignupSuccess();
+                }
+                else {
+                    onSignupFailed();
+                    Log.e("signup",e.getMessage());
+                }
+            }
+        });
+
+        /*
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
@@ -75,7 +99,9 @@ public class SignupActivity extends AppCompatActivity {
                         // onSignupFailed();
                         progressDialog.dismiss();
                     }
-                }, 3000);
+                }, 3000); */
+
+
     }
 
 
@@ -86,7 +112,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), "Signup failed", Toast.LENGTH_LONG).show();
 
         _signupButton.setEnabled(true);
     }

@@ -1,22 +1,50 @@
 package com.example.android.thetdotexchange;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.parse.Parse;
+import com.parse.ParseObject;
+
 public class MainActivity extends ActionBarActivity {
+
+    private static final int REQUEST_LOGIN = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new ContentFragment())
-                    .commit();
-        }
+        setContentView(R.layout.activity_login);
 
+        // Enable Local Datastore.
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this, "metke37nWjgPBuOsJGPtiqRb4724QtQHsBgtR5r9", "gvVjR4iD4hV9PwKA4JAje6YHUpZVI3F36QOzGClJ");
+
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivityForResult(intent, REQUEST_LOGIN);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_LOGIN) {
+            if (resultCode == RESULT_OK) {
+                ParseObject testObject = new ParseObject("TestObject");
+                testObject.put("foo", "barsuccess");
+                testObject.saveInBackground();
+
+                // launch fragment...
+            }
+        }
     }
 
 

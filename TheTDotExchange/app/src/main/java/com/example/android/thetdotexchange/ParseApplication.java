@@ -3,11 +3,10 @@ package com.example.android.thetdotexchange;
 /**
  * Created by Cathy on 2015-09-12.
  */
+
 import android.app.Application;
 
 import com.parse.Parse;
-import com.parse.ParseACL;
-import com.parse.ParseUser;
 
 
 public class ParseApplication extends Application {
@@ -16,18 +15,6 @@ public class ParseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        Parse.initialize(this, "metke37nWjgPBuOsJGPtiqRb4724QtQHsBgtR5r9", "gvVjR4iD4hV9PwKA4JAje6YHUpZVI3F36QOzGClJ");
 
-        // Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
-
-        // Add your initialization code here
-        Parse.initialize(this);
-
-        ParseUser.enableAutomaticUser();
-        ParseACL defaultACL = new ParseACL();
-        // Optionally enable public read access.
-        // defaultACL.setPublicReadAccess(true);
-        ParseACL.setDefaultACL(defaultACL, true);
     }
 }
