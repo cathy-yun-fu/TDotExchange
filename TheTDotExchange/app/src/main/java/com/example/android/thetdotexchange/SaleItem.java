@@ -17,8 +17,8 @@ public class SaleItem {
     double latitude;
     double longitude;
 
-    static double myLat = 0;
-    static double myLon = 0;
+    static double myLat = 42.2828;
+    static double myLon = -83.7347;
 
     SaleItem(String courseCode, String title, double price, double lat, double lon){
         DecimalFormat df = new DecimalFormat("#.##");
