@@ -40,6 +40,7 @@ public class ContentFragment extends Fragment{
     SearchView searchView;
     ListViewItemAdapter adapter;
     Spinner spinner;
+    boolean firstLoad = false;
 
     public ContentFragment() {
     }
@@ -56,6 +57,7 @@ public class ContentFragment extends Fragment{
         lv.setAdapter(adapter);
 
         sortListBy(SORT_BY_PRICE);
+
         setUpMapIfNeeded();
 
         spinner = (Spinner)rootView.findViewById(R.id.sortSelector);
@@ -169,11 +171,13 @@ public class ContentFragment extends Fragment{
                                 double lon = Double.parseDouble(temp.get("Lon").toString());
                                 SaleItem toAdd = new SaleItem(cCode, title, price, lat, lon);
                                 listItems.add(toAdd);
+                                if(!firstLoad) onMapReady(mMap, cCode , lat, lon, price);
                             }
                             restoreCopy = new ArrayList<>();
                             restoreCopy.addAll(listItems);
                             performSearch(searchView.getQuery().toString());
                             adapter.notifyDataSetChanged();
+                            firstLoad = true;
                         } else {
                             System.out.println("Error: " + e.getMessage());
                         }
@@ -196,11 +200,13 @@ public class ContentFragment extends Fragment{
                                 double lon = Double.parseDouble(temp.get("Lon").toString());
                                 SaleItem toAdd = new SaleItem(cCode, title, price, lat, lon);
                                 listItems.add(toAdd);
+                                if(!firstLoad) onMapReady(mMap, cCode , lat, lon, price);
                             }
                             restoreCopy = new ArrayList<>();
                             restoreCopy.addAll(listItems);
                             performSearch(searchView.getQuery().toString());
                             adapter.notifyDataSetChanged();
+                            firstLoad = true;
                         } else {
                             System.out.println("Error: " + e.getMessage());
                         }
@@ -222,6 +228,7 @@ public class ContentFragment extends Fragment{
                                 double lon = Double.parseDouble(temp.get("Lon").toString());
                                 SaleItem toAdd = new SaleItem(cCode, title, price, lat, lon);
                                 listItems.add(toAdd);
+                                if(!firstLoad) onMapReady(mMap, cCode , lat, lon, price);
                             }
 
                             Collections.sort(listItems, new Comparator<SaleItem>() {
@@ -237,6 +244,7 @@ public class ContentFragment extends Fragment{
                             restoreCopy.addAll(listItems);
                             performSearch(searchView.getQuery().toString());
                             adapter.notifyDataSetChanged();
+                            firstLoad = true;
                         } else {
                             System.out.println("Error: " + e.getMessage());
                         }
@@ -291,9 +299,9 @@ public class ContentFragment extends Fragment{
     private void setUpMap() {
         //mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
 
-        for(int i=0; i<20; i++)
-        {
-            onMapReady(mMap, restoreCopy.get(i).courseCode , restoreCopy.get(i).latitude, restoreCopy.get(i).longitude, restoreCopy.get(i).price);
+        for(SaleItem temp : listItems) {
+            System.out.println(temp.title);
+            onMapReady(mMap, temp.courseCode , temp.latitude, temp.longitude, temp.price);
         }
     }
 
