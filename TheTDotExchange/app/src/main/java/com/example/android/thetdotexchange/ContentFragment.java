@@ -1,5 +1,6 @@
 package com.example.android.thetdotexchange;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -48,6 +49,7 @@ public class ContentFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.fragment_content, container, false);
 
         listItems = new ArrayList<>();
@@ -283,8 +285,22 @@ public class ContentFragment extends Fragment{
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map))
                     .getMap();
+            mMap.setMyLocationEnabled(true);
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
+                mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+
+                    @Override
+                    public void onMyLocationChange(Location arg0) {
+                        // TODO Auto-generated method stub
+                        SaleItem.myLat = arg0.getLatitude();
+                        SaleItem.myLon = arg0.getLongitude();
+
+                        for(SaleItem item : listItems){
+                            item.distance = item.distance(SaleItem.myLat, SaleItem.myLon, item.latitude, item.longitude, 'K');
+                        }
+                    }
+                });
                 setUpMap();
             }
         }
