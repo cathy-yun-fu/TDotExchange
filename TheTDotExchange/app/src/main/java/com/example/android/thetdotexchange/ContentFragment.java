@@ -49,8 +49,6 @@ public class ContentFragment extends Fragment{
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_content, container, false);
 
-        setUpMapIfNeeded();
-
         listItems = new ArrayList<>();
 
         lv = (ListView)rootView.findViewById(R.id.listView);
@@ -58,6 +56,7 @@ public class ContentFragment extends Fragment{
         lv.setAdapter(adapter);
 
         sortListBy(SORT_BY_PRICE);
+        setUpMapIfNeeded();
 
         spinner = (Spinner)rootView.findViewById(R.id.sortSelector);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -84,6 +83,7 @@ public class ContentFragment extends Fragment{
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
+
         });
 
         searchView = (SearchView)rootView.findViewById(R.id.searchView);
@@ -110,7 +110,6 @@ public class ContentFragment extends Fragment{
                 return false;
             }
         });
-
         return rootView;
     }
 
@@ -291,18 +290,17 @@ public class ContentFragment extends Fragment{
      */
     private void setUpMap() {
         //mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
-        int[] lat= {0, 0, 3, 3};
-        int[] lng= {0, 3, 0, 3};
-        for(int i=0; i<4; i++)
+
+        for(int i=0; i<20; i++)
         {
-            onMapReady(mMap, i, lat[i], lng[i], i);
+            onMapReady(mMap, restoreCopy.get(i).courseCode , restoreCopy.get(i).latitude, restoreCopy.get(i).longitude, restoreCopy.get(i).price);
         }
     }
 
-    public void onMapReady(GoogleMap map, int i, int lat, int lng, int price) {
+    public void onMapReady(GoogleMap map, String ID, double lat, double lng, double price) {
         map.addMarker(new MarkerOptions()
                 .position(new LatLng(lat, lng))
-                .title("ID: " + i)
-                .snippet("Price: X" + price));
+                .title("" + ID)
+                .snippet("Price: $" + price));
     }
 }

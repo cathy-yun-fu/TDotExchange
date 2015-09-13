@@ -46,7 +46,7 @@
             android:value="@integer/google_play_services_version" />
 
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyARnijJNOvCmBIky67801Ek3Lx_aB5nWRo"/>
+            android:value="AIzaSyCfGuvu6V1z5W95tIeUreRLFT5dNZx4VEo"/>
 
         <activity
             android:name=".TestingContent"
