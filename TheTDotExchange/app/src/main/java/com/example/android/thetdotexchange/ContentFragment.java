@@ -320,8 +320,8 @@ public class ContentFragment extends Fragment{
             System.out.println(temp.title);
             onMapReady(mMap, temp.courseCode , temp.latitude, temp.longitude, temp.price);
         }
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(SaleItem.myLat, SaleItem.myLon)));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(8));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(42.2828,-83.7347), 8));
+        //mMap.animateCamera(CameraUpdateFactory.zoomTo(4));
     }
 
     public void onMapReady(GoogleMap map, String ID, double lat, double lng, double price) {
