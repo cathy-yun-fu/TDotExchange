@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -299,6 +300,8 @@ public class ContentFragment extends Fragment{
                         for(SaleItem item : listItems){
                             item.distance = item.distance(SaleItem.myLat, SaleItem.myLon, item.latitude, item.longitude, 'K');
                         }
+                        mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(SaleItem.myLat,SaleItem.myLon)));
+                        mMap.animateCamera(CameraUpdateFactory.zoomTo(8));
                     }
                 });
                 setUpMap();
