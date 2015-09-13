@@ -5,4 +5,12 @@
     <string name="title_activity_testing_content">TestingContent</string>
     <string name="title_activity_main_activity2">MainActivity2Activity</string>
     <string name="title_activity_home_screen">HomeScreenActivity</string>
+
+    <string name="sortPrompt">Sort By...</string>
+
+    <string-array name="sort_options">
+        <item>Course Code</item>
+        <item>Price</item>
+        <item>Distance</item>
+    </string-array>
 </resources>

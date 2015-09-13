@@ -22,20 +22,31 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="270dp"
         android:id="@+id/imageView"
         android:layout_below="@+id/searchView"
         android:layout_alignStart="@+id/searchView"
         android:src="@mipmap/cat"
         android:contentDescription="IzCuteCat" />
 
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:id="@+id/sortSelector"
+        android:layout_gravity="right"
+        android:layout_below="@+id/imageView"
+        android:spinnerMode="dropdown"
+        android:prompt="@string/sortPrompt"
+        android:entries="@array/sort_options"/>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/imageView"
-        android:layout_alignStart="@+id/imageView"
-        android:layout_alignParentEnd="true">
+        android:layout_below="@+id/sortSelector"
+        android:layout_alignStart="@+id/sortSelector"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/linearLayout">
 
         <ListView
             android:layout_width="match_parent"
