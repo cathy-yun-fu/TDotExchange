@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
-public class MainActivity extends ActionBarActivity {
+public class HomePageActivity extends ActionBarActivity {
 
     private static final int REQUEST_LOGIN = 1;
 
@@ -46,7 +46,6 @@ public class MainActivity extends ActionBarActivity {
             }
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
