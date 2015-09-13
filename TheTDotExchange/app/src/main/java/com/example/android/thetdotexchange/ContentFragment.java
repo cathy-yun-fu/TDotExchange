@@ -41,11 +41,6 @@ public class ContentFragment extends Fragment{
             listItems.add(temp);
         }
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_content, container, false);
-
         lv = (ListView)rootView.findViewById(R.id.listView);
         adapter = new ListViewItemAdapter(inflater, listItems);
         lv.setAdapter(adapter);
