@@ -300,8 +300,6 @@ public class ContentFragment extends Fragment{
                         for(SaleItem item : listItems){
                             item.distance = item.distance(SaleItem.myLat, SaleItem.myLon, item.latitude, item.longitude, 'K');
                         }
-                        mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(SaleItem.myLat,SaleItem.myLon)));
-                        mMap.animateCamera(CameraUpdateFactory.zoomTo(8));
                     }
                 });
                 setUpMap();
@@ -322,6 +320,8 @@ public class ContentFragment extends Fragment{
             System.out.println(temp.title);
             onMapReady(mMap, temp.courseCode , temp.latitude, temp.longitude, temp.price);
         }
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(SaleItem.myLat, SaleItem.myLon)));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(8));
     }
 
     public void onMapReady(GoogleMap map, String ID, double lat, double lng, double price) {
