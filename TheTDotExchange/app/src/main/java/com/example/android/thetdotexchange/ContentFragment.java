@@ -16,6 +16,8 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -164,6 +166,7 @@ public class ContentFragment extends Fragment{
                             }
                             restoreCopy = new ArrayList<>();
                             restoreCopy.addAll(listItems);
+                            performSearch(searchView.getQuery().toString());
                             adapter.notifyDataSetChanged();
                         } else {
                             System.out.println("Error: " + e.getMessage());
@@ -190,6 +193,7 @@ public class ContentFragment extends Fragment{
                             }
                             restoreCopy = new ArrayList<>();
                             restoreCopy.addAll(listItems);
+                            performSearch(searchView.getQuery().toString());
                             adapter.notifyDataSetChanged();
                         } else {
                             System.out.println("Error: " + e.getMessage());
@@ -198,6 +202,40 @@ public class ContentFragment extends Fragment{
                 });
                 break;
             case SORT_BY_DISTANCE:
+                //query.orderByAscending("price");
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    public void done(List<ParseObject> itemList, ParseException e) {
+                        if (e == null) {
+                            listItems.clear();
+                            for (int i = 0; i < itemList.size(); i++) {
+                                ParseObject temp = itemList.get(i);
+                                String cCode = temp.get("courseCode").toString();
+                                String title = temp.get("title").toString();
+                                double price = Double.parseDouble(temp.get("price").toString());
+                                double lat = Double.parseDouble(temp.get("Lat").toString());
+                                double lon = Double.parseDouble(temp.get("Lon").toString());
+                                SaleItem toAdd = new SaleItem(cCode, title, price, lat, lon);
+                                listItems.add(toAdd);
+                            }
+
+                            Collections.sort(listItems, new Comparator<SaleItem>() {
+                                @Override
+                                public int compare(SaleItem saleItem1, SaleItem saleItem2) {
+                                    if (saleItem1.distance < saleItem2.distance) return -1;
+                                    else if(saleItem1.distance == saleItem2.distance) return 0;
+                                    else return 1;
+                                }
+                            });
+
+                            restoreCopy = new ArrayList<>();
+                            restoreCopy.addAll(listItems);
+                            performSearch(searchView.getQuery().toString());
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            System.out.println("Error: " + e.getMessage());
+                        }
+                    }
+                });
                 break;
             default:
         }
