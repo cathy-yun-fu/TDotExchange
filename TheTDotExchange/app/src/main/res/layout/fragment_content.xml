@@ -22,7 +22,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="270dp"
         android:layout_below="@+id/searchView"
         android:id="@+id/themap"
         android:layout_alignParentEnd="false"
@@ -43,7 +43,7 @@
         android:layout_height="25dp"
         android:id="@+id/sortSelector"
         android:layout_gravity="right"
-        android:layout_below="@+id/imageView"
+        android:layout_below="@+id/themap"
         android:spinnerMode="dropdown"
         android:prompt="@string/sortPrompt"
         android:entries="@array/sort_options"/>
@@ -52,8 +52,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/themap"
-        android:layout_alignStart="@+id/themap"
+        android:layout_below="@+id/sortSelector"
+        android:layout_alignStart="@+id/sortSelector"
         android:layout_alignParentEnd="true">
 
         <ListView
