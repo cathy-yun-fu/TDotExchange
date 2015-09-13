@@ -34,6 +34,16 @@
 
     </LinearLayout>
 
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:id="@+id/sortSelector"
+        android:layout_gravity="right"
+        android:layout_below="@+id/imageView"
+        android:spinnerMode="dropdown"
+        android:prompt="@string/sortPrompt"
+        android:entries="@array/sort_options"/>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
