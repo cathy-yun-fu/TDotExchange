@@ -1,3 +1,3 @@
-# TDotExchange
+# TdotExchange
 
-Textbook Exchange App - made at MHacks6
+Textbook Exchange App - made at MHacks6 
